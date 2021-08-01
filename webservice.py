@@ -6,8 +6,10 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
+usernames = ['Wesley']
 
-def send_email():
+
+def send_email(username):
     FROM = request.form["CC"]
 
     TO = request.form["TO"]
@@ -15,13 +17,12 @@ def send_email():
 
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = request.form["Title"]
+    msg['Subject'] = request.form["Title"].format(username)
     msg['From'] = request.form["CC"]
     msg['To'] = request.form["TO"]
 
     send = [TO]
     html = request.form["html"] + str(request.files['file'].read(), 'utf-8')
-
     # Record the MIME types of both parts - text/plain and text/html.
     html_code = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
@@ -40,12 +41,14 @@ def send_email():
 @app.route('/', methods=["POST", "GET"])
 def home():
     if request.method == "POST":
-        TO = request.form["TO"]
-        CC = request.form["CC"]
-        Title = request.form["Title"]
+
         html = request.form["html"]
-        print(TO, CC, Title, html)
-        return render_template("email.html"), send_email()
+
+        print(html)
+        for username in usernames:
+            render_template("email.html"), send_email(username)
+        return render_template("email.html")
+
     else:
         return render_template("email.html")
 
