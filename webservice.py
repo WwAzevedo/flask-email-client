@@ -13,7 +13,7 @@ def send_email(username):
     FROM = request.form["CC"]
 
     TO = request.form["TO"]
-    password = ""
+    password = "upkfxdmetotxocbd"
 
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
@@ -22,7 +22,7 @@ def send_email(username):
     msg['To'] = request.form["TO"]
 
     send = [TO]
-    html = request.form["html"] + str(request.files['file'].read(), 'utf-8')
+    html = request.form["html"].format(username) + str(request.files['file'].read(), 'utf-8')
     # Record the MIME types of both parts - text/plain and text/html.
     html_code = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
