@@ -2,7 +2,7 @@
     clearOnRender: true,
     height: '100%',
     storageManager: {
-      id: '#html',             // Prefix identifier that will be used inside storing and loading
+      id: '#html',            // Prefix identifier that will be used inside storing and loading
       type: 'local',          // Type of the storage
       autosave: true,         // Store data automatically
       autoload: true,         // Autoload stored data on init
@@ -58,10 +58,10 @@
 
 
 
-        var form = document.querySelector('form');
-        form.onsubmit = function() {
-          // Populate hidden form on submit
-          var html = document.querySelector('input[name=html]');
-          html.value = editor.runCommand('gjs-get-inlined-html');
-          console.log("Submitted", $(form).serialize(), $(form).serializeArray());
-          }
+var form = document.querySelector('form');
+form.onsubmit = function() {
+  // Populate hidden form on submit
+  var html = document.querySelector('input[name=html]');
+  html.value = editor.runCommand('gjs-get-inlined-html');
+  console.log("Submitted", $(form).serialize(), $(form).serializeArray());
+  }
