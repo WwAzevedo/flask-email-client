@@ -12,6 +12,8 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+token files
+client_secret.json
 
 # AWS User-specific
 .idea/**/aws.xml
