@@ -58,16 +58,19 @@ def home():
         print(html)
         for username in usernames:
             send_email(username, service=oauth2_gmail_login())
-        return render_template("email.html")
+        return render_template("home.html", user_email=get_user_email(service=oauth2_gmail_login()))
     elif request.method == "GET":
-        return render_template("email.html", user_email=get_user_email(service=oauth2_gmail_login()))
+        return render_template("home.html", user_email=get_user_email(service=oauth2_gmail_login()))
 
 #Login route
-@app.route('/login', methods=["GET"])
+@app.route('/login', methods=["POST","GET"])
 def login():
     if request.method == "GET":
+        return render_template("login.html")
+    elif request.method == "POST":
         oauth2_gmail_login()
         return redirect('http://127.0.0.1:5000/')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
